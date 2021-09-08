@@ -4,7 +4,11 @@
         "Name": "koushik",
         "Surname": "kondepati",
         "Email": "koushikkondepati@gmail.com",
+        "Password": "yayayayy",
+        "username": "hahahha",
+        "company" : "yasuia",
         "Phone": "1929339219",
+        "Countrycode": "uauaua",
         "Status": "Active"
 
     },
@@ -13,7 +17,11 @@
         "Name": "rohit",
         "Surname": "kondepati",
         "Email": "rohithkondepati@gmail.com",
-        "Phone": "1929339",
+        "Password": "yayayayy",
+        "username": "hahahha",
+        "company" : "yasuia",
+        "Phone": "1929339219",
+        "Countrycode": "uauaua",
         "Status": "Active"
 
     },
@@ -22,7 +30,11 @@
         "Name": "kishore",
         "Surname": "kondepati",
         "Email": "kishorekondepati@gmail.com",
-        "Phone": "199219",
+        "Password": "yayayayy",
+        "username": "hahahha",
+        "company" : "yasuia",
+        "Phone": "1929339219",
+        "Countrycode": "uauaua",
         "Status": "Active"
 
     },
@@ -31,7 +43,11 @@
         "Name": "ram",
         "Surname": "kondepati",
         "Email": "ramkondepati@gmail.com",
-        "Phone": "19293399",
+        "Password": "yayayayy",
+        "username": "hahahha",
+        "company" : "yasuia",
+        "Phone": "1929339219",
+        "Countrycode": "uauaua",
         "Status": "Active"
 
     },
@@ -40,7 +56,11 @@
         "Name": "sitha",
         "Surname": "kondepati",
         "Email": "sithakondepati@gmail.com",
-        "Phone": "1929339",
+        "Password": "yayayayy",
+        "username": "hahahha",
+        "company" : "yasuia",
+        "Phone": "1929339219",
+        "Countrycode": "uauaua",
         "Status": "Active"
 
     },
@@ -49,7 +69,11 @@
         "Name": "sudheer",
         "Surname": "kondepati",
         "Email": "sudheerkondepati@gmail.com",
-        "Phone": "9339219",
+        "Password": "yayayayy",
+        "username": "hahahha",
+        "company" : "yasuia",
+        "Phone": "1929339219",
+        "Countrycode": "uauaua",
         "Status": "Active"
 
     }
