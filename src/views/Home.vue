@@ -5,7 +5,7 @@
           <v-col cols="12" class="d-inline-flex" style="height:70px">
             <h4 class="pt-1 ml-4">Users</h4>
             <v-spacer></v-spacer>
-            <v-btn dense color="primary" class="mr-4">Create User</v-btn>
+            <v-btn dense color="primary" class="mr-4" @click="createUserDialog=true">Create User</v-btn>
           </v-col>
         </v-row>
         <v-divider></v-divider>
@@ -31,6 +31,64 @@
             </table>
           </v-col>
         </v-row>
+        <v-dialog v-model="createUserDialog" width="800" persitent style="overflow-x: hidden">
+          <v-card style="height:100vh" elevation-1>
+            <v-row>
+              <v-col cols="12" class="pa-8">
+                <v-row>
+                  <v-col md="6">
+                    <label for="Name">Name</label><br/>
+                    <v-text-field dense outlined v-model="name"></v-text-field>
+                  </v-col>
+                  <v-col md="6">
+                    <label for="Surname">Surname</label><br/>
+                    <v-text-field dense outlined v-model="surname"></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col md="6">
+                    <label for="Email">Email Address</label><br/>
+                    <v-text-field dense outlined v-model="email" ></v-text-field>
+                  </v-col>
+                  <v-col md="6">
+                    <label for="Surname">Password</label><br/>
+                    <v-text-field dense outlined v-model="password"></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col md="6">
+                    <label for="username">Username</label><br/>
+                    <v-text-field dense outlined v-model="username"></v-text-field>
+                  </v-col>
+                  <v-col md="6">
+                    <label for="company">Company</label><br/>
+                    <v-text-field dense outlined v-model="company"></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col md="6">
+                    <label for="Phone">Phone Number</label><br/>
+                    <v-text-field dense outlined v-model="phone"></v-text-field>
+                  </v-col>
+                  <v-col md="6">
+                    <label for="Countrycode">Phone Country Code</label><br/>
+                    <v-text-field dense outlined v-model="countrycode"></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="3">
+                    <button>choose file</button>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="3">
+                    <v-btn color="primary" dense @click="createUserDialog=false">Save</v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-dialog>
       </v-card>
   </div>
 </template>
@@ -43,6 +101,17 @@ export default {
   data(){
     return{
       users: userData,
+      createUserDialog: false,
+      // create user form data
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
+      username: "",
+      company: "",
+      phone: "",
+      countrycode: "",
+      
     }
   },
 
@@ -75,7 +144,17 @@ td,th{
   padding: 10px 20px;
 }
 
+tr:hover{
+  cursor: pointer;
+  background-color: #dddddd;
+}
+
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+.input{
+  width: 40%;
+  padding: 10px;
 }
 </style>
