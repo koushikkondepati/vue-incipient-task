@@ -1,0 +1,48 @@
+.home-div{
+    padding: 40px 20px;
+  }
+  
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+  }
+  
+  tr,th {
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    /* padding: 10px 5px; */
+  }
+  
+  td,th{
+    padding: 10px 20px;
+  }
+  
+  tr:hover{
+    cursor: pointer;
+    background-color: #dddddd;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  
+  .input{
+    width: 40%;
+    padding: 10px;
+  }
+  
+  .v-scrolling-div{
+    overflow-y: scroll;
+  }
+  
+  .v-scrolling-div::-webkit-scrollbar {
+          width: 5px;
+   }
+      .v-scrolling-div::-webkit-scrollbar-track {
+          background: #f1f1f1;
+      }
+      .v-scrolling-div::-webkit-scrollbar-thumb {
+          background: #AFAFAF;
+      }

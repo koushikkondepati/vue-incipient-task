@@ -108,6 +108,7 @@
 
 <script>
 import userData from "../users.json";
+import "../styles/style.css";
 export default {
   name: "Home",
 
@@ -209,7 +210,7 @@ export default {
 
 <style scoped>
 
-.home-div{
+/* .home-div{
   padding: 40px 20px;
 }
 
@@ -223,7 +224,7 @@ table {
 tr,th {
   border-top: 2px solid #ddd;
   border-bottom: 2px solid #ddd;
-  /* padding: 10px 5px; */
+  
 }
 
 td,th{
@@ -256,5 +257,5 @@ tr:nth-child(even) {
     }
     .v-scrolling-div::-webkit-scrollbar-thumb {
         background: #AFAFAF;
-    }
+    } */
 </style>
