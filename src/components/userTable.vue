@@ -40,20 +40,20 @@
                 <v-row>
                   <v-col md="6">
                     <label for="Name">Name</label><br/>
-                    <v-text-field v-if="!editenabled" dense outlined v-model="Name"></v-text-field>
-                    <v-text-field v-else dense outlined v-model="editUser.Name"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="Name" :rules="rules.name" required></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.Name" :rules="rules.name" required></v-text-field>
                   </v-col>
                   <v-col md="6">
                     <label for="Surname">Surname</label><br/>
-                    <v-text-field v-if="!editenabled" dense outlined v-model="surname"></v-text-field>
-                    <v-text-field v-else dense outlined v-model="editUser.surname"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="surname" :rules="rules.name" required></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.surname" :rules="rules.name" required></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col md="6">
                     <label for="Email">Email Address</label><br/>
-                    <v-text-field v-if="!editenabled" dense outlined v-model="email" ></v-text-field>
-                    <v-text-field v-else dense outlined v-model="editUser.email"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="email" :rules="rules.name" required></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.email" :rules="rules.name" required></v-text-field>
                   </v-col>
                   <v-col md="6">
                     <label for="Surname">Password</label><br/>
@@ -76,8 +76,8 @@
                 <v-row>
                   <v-col md="6">
                     <label for="Phone">Phone Number</label><br/>
-                    <v-text-field v-if="!editenabled" dense outlined v-model="phone"></v-text-field>
-                    <v-text-field v-else dense outlined v-model="editUser.phone"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="phone" :rules="rules.name" required></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.phone" :rules="rules.name" required></v-text-field>
                   </v-col>
                   <v-col md="6">
                     <label for="Countrycode">Phone Country Code</label><br/>
@@ -87,12 +87,12 @@
                 </v-row>
                 <v-row>
                   <v-col cols="3">
-                    <button>choose file</button>
+                    <input type="file" id="myFile" name="filename">
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="3">
-                    <v-btn v-if="!editenabled" color="primary" dense @click="createUser()">Save</v-btn>
+                    <v-btn v-if="!editenabled" color="primary" dense @click="createUser()" :disabled="(Name.length == 0 || email.length == 0 || phone.length == 0)">Save</v-btn>
                     <v-btn v-else color="primary" dense @click="UpdateUser()">Save</v-btn>
                   </v-col>
                 </v-row>
@@ -136,20 +136,24 @@ export default {
       usersdata: "",
       editenabled: false,
       
+      //validation
+      rules: {
+          name: [val => (val || '').length > 0 || 'This field is required'],
+        },
     }
   },
 
   components: {
-    // HelloWorld,
+    
   },
 
- 
-
   methods:{
+    //opens the dialog or popup box
     openCreateUserDialog(){
       this.UserDialog = true;
     },
 
+    //creates the row for the table
     createUser(){
       this.users.push({
         "id": this.users.length,
@@ -160,8 +164,11 @@ export default {
         "Status": "Active"
       });
       this.UserDialog= false;
+      this.reset();
     },
 
+
+    //edit the selected row details
     editUserDetails(idx){
       this.editenabled = true;
       this.selectedRow = idx;
@@ -176,6 +183,7 @@ export default {
       this.editUser.countrycode = this.users[idx].Countrycode;
     },
 
+    //update the selected row
     async UpdateUser(){
       
       this.users[this.selectedRow].id = this.selectedRow+1;
@@ -192,11 +200,23 @@ export default {
       this.editenabled = false;
     },
 
+    // remove the selected row
     remove(idx){
       if(confirm("Are u sure to delete this userr?")){
-        // document.getElementById("employeelist").deleteRow(idx+1)[idx];
         this.users.splice(idx,1);
       }
+    },
+
+    //reset form
+    reset(){
+        this.Name = "";
+          this.surname = "";
+          this.email = "";
+          this.password = "";
+          this.username = "";
+          this.company = "";
+          this.phone = "";
+          this.countrycode = "";
     }
     
    
