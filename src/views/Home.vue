@@ -33,48 +33,57 @@
             </div>
           </v-col>
         </v-row>
-        <v-dialog v-model="createUserDialog" width="800" persitent style="overflow-x: hidden">
+        <!-- user dialog starts here -->
+        <v-dialog v-model="UserDialog" width="800" persitent style="overflow-x: hidden">
           <v-card style="height:100vh" elevation-1>
             <v-row>
               <v-col cols="12" class="pa-8">
                 <v-row>
                   <v-col md="6">
                     <label for="Name">Name</label><br/>
-                    <v-text-field dense outlined v-model="Name"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="Name"></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.Name"></v-text-field>
                   </v-col>
                   <v-col md="6">
                     <label for="Surname">Surname</label><br/>
-                    <v-text-field dense outlined v-model="surname"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="surname"></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.surname"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col md="6">
                     <label for="Email">Email Address</label><br/>
-                    <v-text-field dense outlined v-model="email" ></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="email" ></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.email"></v-text-field>
                   </v-col>
                   <v-col md="6">
                     <label for="Surname">Password</label><br/>
-                    <v-text-field dense outlined v-model="password"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="password"></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.password"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col md="6">
                     <label for="username">Username</label><br/>
-                    <v-text-field dense outlined v-model="username"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="username"></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.username"></v-text-field>
                   </v-col>
                   <v-col md="6">
                     <label for="company">Company</label><br/>
-                    <v-text-field dense outlined v-model="company"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="company"></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.company"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col md="6">
                     <label for="Phone">Phone Number</label><br/>
-                    <v-text-field dense outlined v-model="phone"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="phone"></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.phone"></v-text-field>
                   </v-col>
                   <v-col md="6">
                     <label for="Countrycode">Phone Country Code</label><br/>
-                    <v-text-field dense outlined v-model="countrycode"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="countrycode"></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.countrycode"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -84,73 +93,15 @@
                 </v-row>
                 <v-row>
                   <v-col cols="3">
-                    <v-btn color="primary" dense @click="createUser()">Save</v-btn>
+                    <v-btn v-if="!editenabled" color="primary" dense @click="createUser()">Save</v-btn>
+                    <v-btn v-else color="primary" dense @click="UpdateUser()">Save</v-btn>
                   </v-col>
                 </v-row>
               </v-col>
             </v-row>
           </v-card>
         </v-dialog>
-        <!-- create user dialog ends -->
-        <!-- edit user dialog starts -->
-        <v-dialog v-model="editUserDialog" width="800" persitent style="overflow-x: hidden">
-          <v-card style="height:100vh" elevation-1>
-            <v-row>
-              <v-col cols="12" class="pa-8">
-                <v-row>
-                  <v-col md="6">
-                    <label for="Name">Name</label><br/>
-                    <v-text-field dense outlined v-model="editUser.Name"></v-text-field>
-                  </v-col>
-                  <v-col md="6">
-                    <label for="Surname">Surname</label><br/>
-                    <v-text-field dense outlined v-model="editUser.surname"></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col md="6">
-                    <label for="Email">Email Address</label><br/>
-                    <v-text-field dense outlined v-model="editUser.email" ></v-text-field>
-                  </v-col>
-                  <v-col md="6">
-                    <label for="Surname">Password</label><br/>
-                    <v-text-field dense outlined v-model="password"></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col md="6">
-                    <label for="username">Username</label><br/>
-                    <v-text-field dense outlined v-model="editUser.username"></v-text-field>
-                  </v-col>
-                  <v-col md="6">
-                    <label for="company">Company</label><br/>
-                    <v-text-field dense outlined v-model="editUser.company"></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col md="6">
-                    <label for="Phone">Phone Number</label><br/>
-                    <v-text-field dense outlined v-model="editUser.phone"></v-text-field>
-                  </v-col>
-                  <v-col md="6">
-                    <label for="Countrycode">Phone Country Code</label><br/>
-                    <v-text-field dense outlined v-model="editUser.countrycode"></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="3">
-                    <button>choose file</button>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="3">
-                    <v-btn color="primary" dense @click="UpdateUser()">Save</v-btn>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-dialog>
+        <!-- user dialog ends -->
       </v-card>
   </div>
 </template>
@@ -163,8 +114,7 @@ export default {
   data(){
     return{
       users: userData,
-      createUserDialog: false,
-      editUserDialog: false,
+      UserDialog: false,
       // create user form data
       Name: "",
       surname: "",
@@ -186,7 +136,8 @@ export default {
         countrycode: ""
       },
       selectedRow: null,
-      
+      usersdata: "",
+      editenabled: false,
       
     }
   },
@@ -195,9 +146,11 @@ export default {
     // HelloWorld,
   },
 
+ 
+
   methods:{
     openCreateUserDialog(){
-      this.createUserDialog = true;
+      this.UserDialog = true;
     },
 
     createUser(){
@@ -209,12 +162,13 @@ export default {
         "Phone": this.phone,
         "Status": "Active"
       });
-      this.createUserDialog= false;
+      this.UserDialog= false;
     },
 
     editUserDetails(idx){
+      this.editenabled = true;
       this.selectedRow = idx;
-      this.editUserDialog= true;
+      this.UserDialog= true;
       this.editUser.Name = this.users[idx].Name;
       this.editUser.surname = this.users[idx].Surname;
       this.editUser.email = this.users[idx].Email;
@@ -237,7 +191,8 @@ export default {
       this.users[this.selectedRow].Countrycode = this.editUser.countrycode;
       this.users[this.selectedRow].Phone = this.editUser.phone;
 
-      this.editUserDialog= false;
+      this.UserDialog= false;
+      this.editenabled = false;
     },
 
     remove(idx){
