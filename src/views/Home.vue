@@ -11,7 +11,8 @@
         <v-divider></v-divider>
         <v-row class="d-flex justify-center">
           <v-col cols="11">
-            <table class="mt-6" id="employeelist">
+            <div class="v-scrolling-div" style="height:420px">
+              <table class="mt-6" id="employeelist">
               <tr>
                 <th>Name</th>
                 <th>SurName</th>
@@ -29,6 +30,7 @@
                 <td><v-btn dense color="success" @click="editUserDetails(idx)">Edit</v-btn><v-btn dense color="error" class="ml-2" @click="remove(idx)">Delete</v-btn></td>
               </tr>
             </table>
+            </div>
           </v-col>
         </v-row>
         <v-dialog v-model="createUserDialog" width="800" persitent style="overflow-x: hidden">
@@ -240,7 +242,8 @@ export default {
 
     remove(idx){
       if(confirm("Are u sure to delete this userr?")){
-        document.getElementById("employeelist").deleteRow(idx+1)[idx];
+        // document.getElementById("employeelist").deleteRow(idx+1)[idx];
+        this.users.splice(idx,1);
       }
     }
     
@@ -285,4 +288,18 @@ tr:nth-child(even) {
   width: 40%;
   padding: 10px;
 }
+
+.v-scrolling-div{
+  overflow-y: scroll;
+}
+
+.v-scrolling-div::-webkit-scrollbar {
+        width: 5px;
+    }
+    .v-scrolling-div::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    .v-scrolling-div::-webkit-scrollbar-thumb {
+        background: #AFAFAF;
+    }
 </style>
