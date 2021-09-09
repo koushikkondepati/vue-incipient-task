@@ -1,10 +1,11 @@
 <template>
     <div>
-        <v-row>
+        <v-row> 
+            <!-- https://dummy.restapiexample.com/api/v1/employees -->
           <v-col cols="12" class="d-inline-flex" style="height:70px">
             <h4 class="pt-1 ml-4">Users</h4>
             <v-spacer></v-spacer>
-            <v-btn dense color="primary" class="mr-4" @click="openCreateUserDialog()">Create User</v-btn>
+            <v-btn dense color="primary" class="mr-4" @click.stop="openCreateUserDialog()">Create User</v-btn>
           </v-col>
         </v-row>
         <v-divider></v-divider>
@@ -17,23 +18,23 @@
                     <th>SurName</th>
                     <th>Email</th>
                     <th>Phone Number</th>
-                    <th>Activate</th>
+                    <th>website</th>
                     <th>Action</th>
                 </tr>
-                <tr v-for="(user,idx) in users" :key="user.id" id="employeelist">
-                    <td>{{user.Name}}</td>
-                    <td>{{user.Surname}}</td>
-                    <td>{{user.Email}}</td>
-                    <td>{{user.Phone}}</td>
-                    <td>{{user.Status}}</td>
-                    <td><v-btn dense color="success" @click="editUserDetails(idx)">Edit</v-btn><v-btn dense color="error" class="ml-2" @click="remove(idx)">Delete</v-btn></td>
+                <tr v-for="(user,idx) in data" :key="user.id" id="employeelist">
+                    <td>{{user.name}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{user.website}}</td>
+                    <td><v-btn dense color="success" @click.stop="editUserDetails(idx)">Edit</v-btn><v-btn dense color="error" class="ml-2" @click="remove(idx)">Delete</v-btn></td>
                 </tr>
                 </table>
                 </div>
           </v-col>
         </v-row>
         <!-- user dialog starts here -->
-        <v-dialog v-model="UserDialog" width="800" persitent style="overflow-x: hidden">
+        <v-dialog v-model="UserDialog" width="800" persistent style="overflow-x: hidden">
           <v-card style="height:100vh" elevation-1>
             <v-row>
               <v-col cols="12" class="pa-8">
@@ -69,8 +70,8 @@
                   </v-col>
                   <v-col md="6">
                     <label for="company">Company</label><br/>
-                    <v-text-field v-if="!editenabled" dense outlined v-model="company"></v-text-field>
-                    <v-text-field v-else dense outlined v-model="editUser.company"></v-text-field>
+                    <v-text-field v-if="!editenabled" dense outlined v-model="website"></v-text-field>
+                    <v-text-field v-else dense outlined v-model="editUser.website"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -92,7 +93,7 @@
                 </v-row>
                 <v-row>
                   <v-col cols="3">
-                    <v-btn v-if="!editenabled" color="primary" dense @click="createUser()" :disabled="(Name.length == 0 || email.length == 0 || phone.length == 0)">Save</v-btn>
+                    <v-btn v-if="!editenabled" color="primary" dense @click="createUser()" :disabled="(this.Name.length == 0 || this.email.length == 0 || this.phone.length == 0 || this.website.length == 0 || this.surname.length == 0)">Save</v-btn>
                     <v-btn v-else color="primary" dense @click="UpdateUser()">Save</v-btn>
                   </v-col>
                 </v-row>
@@ -110,6 +111,7 @@ export default {
 
   data(){
     return{
+      data: [],
       users: userData,
       UserDialog: false,
       // create user form data
@@ -118,7 +120,7 @@ export default {
       email: "",
       password: "",
       username: "",
-      company: "",
+      website: "",
       phone: "",
       countrycode: "",
       //edit details data
@@ -129,7 +131,7 @@ export default {
         password: "",
         username: "",
         phone: "",
-        company: "",
+        website: "",
         countrycode: ""
       },
       selectedRow: null,
@@ -147,7 +149,24 @@ export default {
     
   },
 
+  mounted(){
+      this.getData();
+  },
+
   methods:{
+
+    async getData() {
+      try {
+        let response = await fetch("https://jsonplaceholder.typicode.com/users");
+        this.apiUsers = await response.json();
+        console.log(this.apiUsers);
+        //console.log(JSON.stringify(this.apiUsers));
+        this.data = this.apiUsers;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     //opens the dialog or popup box
     openCreateUserDialog(){
       this.UserDialog = true;
@@ -155,13 +174,15 @@ export default {
 
     //creates the row for the table
     createUser(){
-      this.users.push({
-        "id": this.users.length,
-        "Name": this.Name,
-        "Surname": this.surname,
-        "Email": this.email,
-        "Phone": this.phone,
-        "Status": "Active"
+      this.data.push({
+        "id": this.data.length+20,
+        "name": this.Name,
+        "username": this.surname,
+        "email": this.email,
+        "phone": this.phone,
+        "website": this.website,
+        // "address[3]": this.password,
+        // "address[4]": this.countrycode,
       });
       this.UserDialog= false;
       this.reset();
@@ -173,28 +194,30 @@ export default {
       this.editenabled = true;
       this.selectedRow = idx;
       this.UserDialog= true;
-      this.editUser.Name = this.users[idx].Name;
-      this.editUser.surname = this.users[idx].Surname;
-      this.editUser.email = this.users[idx].Email;
-      this.editUser.password = this.users[idx].Password;
-      this.editUser.username = this.users[idx].Username;
-      this.editUser.company = this.users[idx].Company;
-      this.editUser.phone = this.users[idx].Phone;
-      this.editUser.countrycode = this.users[idx].Countrycode;
+      this.editUser.Name = this.data[idx].name;
+      this.editUser.surname = this.data[idx].username;
+      this.editUser.email = this.data[idx].email;
+    //   this.editUser.password = this.data[idx].address[3];
+      this.editUser.username = this.data[idx].username;
+      this.editUser.website = this.data[idx].website;
+      this.editUser.phone = this.data[idx].phone;
+    //   this.editUser.countrycode = this.data[idx].address[4];
+
+      this.reset();
     },
 
     //update the selected row
     async UpdateUser(){
       
-      this.users[this.selectedRow].id = this.selectedRow+1;
-      this.users[this.selectedRow].Name = this.editUser.Name;
-      this.users[this.selectedRow].Surname = this.editUser.surname;
-      this.users[this.selectedRow].Email = this.editUser.email;
-      this.users[this.selectedRow].Password = this.editUser.password;
-      this.users[this.selectedRow].Username = this.editUser.username;
-      this.users[this.selectedRow].Company = this.editUser.company;
-      this.users[this.selectedRow].Countrycode = this.editUser.countrycode;
-      this.users[this.selectedRow].Phone = this.editUser.phone;
+      this.data[this.selectedRow].id = this.selectedRow+1;
+      this.data[this.selectedRow].name = this.editUser.Name;
+      this.data[this.selectedRow].username = this.editUser.surname;
+      this.data[this.selectedRow].email = this.editUser.email;
+    //   this.data[this.selectedRow].address[3] = this.editUser.password;
+      this.data[this.selectedRow].username = this.editUser.username;
+      this.data[this.selectedRow].website = this.editUser.website;
+    //   this.data[this.selectedRow].address[4] = this.editUser.countrycode;
+      this.data[this.selectedRow].phone = this.editUser.phone;
 
       this.UserDialog= false;
       this.editenabled = false;
@@ -202,8 +225,8 @@ export default {
 
     // remove the selected row
     remove(idx){
-      if(confirm("Are u sure to delete this userr?")){
-        this.users.splice(idx,1);
+      if(confirm("Are u sure to delete this user?")){
+        this.data.splice(idx,1);
       }
     },
 
@@ -214,7 +237,7 @@ export default {
           this.email = "";
           this.password = "";
           this.username = "";
-          this.company = "";
+          this.website = "";
           this.phone = "";
           this.countrycode = "";
     }
