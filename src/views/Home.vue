@@ -11,7 +11,7 @@
 <script>
 // import userData from "../users.json";
 import "../styles/style.css";
-import UserTable from "../components/UserTable.vue";
+import UserTable from "../components/userTable.vue";
 import AddUser from "../components/AddUser.vue";
 export default {
   name: "Home",

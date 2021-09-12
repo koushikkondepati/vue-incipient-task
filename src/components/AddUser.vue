@@ -21,7 +21,6 @@ import UserDialog from "./UserDialog.vue"
 export default {
   data(){
     return{
-      userDialog: false,
     }
   },
   components:{
@@ -32,9 +31,6 @@ export default {
   },
   methods:{
     ...mapActions(["openDialog"]),
-    openCreateUserDialog(){
-      this.userDialog = true;
-    }
   },
 }
 </script>

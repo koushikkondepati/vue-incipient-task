@@ -12,7 +12,7 @@
                     <th>website</th>
                     <th>Action</th>
                 </tr>
-                <tr v-for="(user) in allUsers" :key="user.id" id="employeelist">
+                <tr v-for="user in allUsers" :key="user.id" id="employeelist">
                     <td>{{user.name}}</td>
                     <td>{{user.username}}</td>
                     <td>{{user.email}}</td>
@@ -66,7 +66,7 @@ export default {
       
   },
 
-  computed: mapGetters(["allUsers","dialogStatus","getEditBtnStatus"]),
+  computed: mapGetters(["allUsers","getDialogStatus","getEditBtnStatus","getSelectedId"]),
 
   methods:{
 
