@@ -1,6 +1,6 @@
 <template>
     <!-- user dialog starts here -->
-        <v-dialog v-model="userDialog" width="800" style="overflow-x: hidden">
+        <v-dialog v-model="getDialogStatus" width="800" persistent style="overflow-x: hidden">
           <v-card style="height:100vh" elevation-1>
             <v-row>
               <v-col cols="12" class="pa-8">
@@ -114,7 +114,7 @@ export default {
     methods:{
       ...mapActions(["addUser"]),
     },
-    computed:mapGetters(["dialogStatus"]),
+    computed:mapGetters(["getDialogStatus"]),
     
 
 }

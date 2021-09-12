@@ -9,9 +9,9 @@ const getters = {
     allUsers: (state) => {
         return state.users
     },
-    // dialogStatus: (state)=>{
-    //     return state.userDialog
-    // }
+    getDialogStatus: (state)=>{
+        return state.userDialog
+    }
 };
 
 const actions = {
@@ -19,6 +19,11 @@ const actions = {
         const response = await axios.get('https://jsonplaceholder.typicode.com/users');
 
         commit('setUsers', response.data);
+    },
+
+    async openDialog({commit}){
+        const value = true;
+        commit('dialogStatus',value);
     },
 
     async deleteUsers( {commit}, id){
@@ -39,10 +44,9 @@ const actions = {
         'email':UserDataEmptyArray.email,
     })
     console.log(response.data);
-    // this.$emit('onCreate',userDialog);
     commit('addUser', response.data);
-    // commit('dialogStatus',state.userDialog);
-    // console.log(state.userDialog);
+    const value1 = false;
+    commit('dialogStatus',value1);
     },
 
     async updateUser( {commit}, EditedUserDataArray){
@@ -65,8 +69,9 @@ const mutations = {
     setUsers: (state, users) => (state.users = users),
     removeUser: (state,id) => state.users = state.users.filter((user) => user.id !== id),
     addUser: (state,newUser) => state.users.unshift(newUser),
-    // dialogStatus: (state,dialogStatus) => (state.userDialog = dialogStatus),
+    dialogStatus: (state,value) => (state.userDialog = value),
 };
+
 
 export default {
     state,
