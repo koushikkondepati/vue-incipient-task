@@ -3,6 +3,7 @@ import axios from 'axios';
 const state = {
     users:[],
     userDialog: false,
+    editEnabled: false,
 };
 // getting the state
 const getters = {
@@ -11,13 +12,15 @@ const getters = {
     },
     getDialogStatus: (state)=>{
         return state.userDialog
+    },
+    getEditBtnStatus: (state)=>{
+        return state.editEnabled
     }
 };
 
 const actions = {
     async fetchUsers({ commit }) {
         const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-
         commit('setUsers', response.data);
     },
 
@@ -29,7 +32,6 @@ const actions = {
     async deleteUsers( {commit}, id){
         if(confirm("Are u sure to delete this user?")){
             await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
-
             commit('removeUser', id);
         }
    
@@ -49,6 +51,21 @@ const actions = {
     commit('dialogStatus',value1);
     },
 
+    async editUserDetails({commit}, id){
+        const response = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, {
+            'name':'',
+            'username':'',
+            'phone':'',
+            'website':'EditedUserDataArray.website',
+            'email':'EditedUserDataArray.email',
+        });
+        const value3 = true;
+        commit('dialogStatus',value3);
+        console.log(response.data);
+        const value2 = true;
+        commit('editEnable',value2);
+    },
+
     async updateUser( {commit}, EditedUserDataArray){
         const response = await axios.put('https://jsonplaceholder.typicode.com/users', {
             'name':EditedUserDataArray.Name,
@@ -58,10 +75,7 @@ const actions = {
             'email':EditedUserDataArray.email,
         })
         console.log(response.data);
-        // this.$emit('onCreate',userDialog);
         commit('addUser', response.data);
-        // commit('dialogStatus',state.userDialog);
-        // console.log(state.userDialog);
         }
 };
 
@@ -70,6 +84,8 @@ const mutations = {
     removeUser: (state,id) => state.users = state.users.filter((user) => user.id !== id),
     addUser: (state,newUser) => state.users.unshift(newUser),
     dialogStatus: (state,value) => (state.userDialog = value),
+    editEnable: (state,value1) => (state.editEnabled = value1),
+
 };
 
 

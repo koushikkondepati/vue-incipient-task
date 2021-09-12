@@ -18,7 +18,7 @@
                     <td>{{user.email}}</td>
                     <td>{{user.phone}}</td>
                     <td>{{user.website}}</td>
-                    <td><v-btn dense color="success" @click.stop="editUserDetails(user.id)">Edit</v-btn><v-btn dense color="error" class="ml-2" @click="deleteUsers(user.id)">Delete</v-btn></td>
+                    <td><v-btn dense color="success" @click="editUserDetails(user.id)">Edit</v-btn><v-btn dense color="error" class="ml-2" @click="deleteUsers(user.id)">Delete</v-btn></td>
                 </tr>
                 </table>
                 </div>
@@ -26,7 +26,7 @@
         </v-row>
         <!-- userDialog component -->
         <v-row>
-          <UserDialog :userDialog="userDialog" :editenabled="editenabled"></UserDialog>
+          <UserDialog></UserDialog>
         </v-row>
     </div>
 </template>
@@ -66,21 +66,21 @@ export default {
       
   },
 
-  computed: mapGetters(["allUsers","dialogStatus"]),
+  computed: mapGetters(["allUsers","dialogStatus","getEditBtnStatus"]),
 
   methods:{
 
 
-    ...mapActions(["fetchUsers","deleteUsers"]),
+    ...mapActions(["fetchUsers","deleteUsers","editUserDetails"]),
 
 
 
     //edit the selected row details
-    editUserDetails(idx){
-      this.editenabled = true;
-      this.selectedRow = idx;
-      this.userDialog = true;
-    },
+    // editUserDetails(idx){
+    //   this.editenabled = true;
+    //   this.selectedRow = idx;
+    //   this.userDialog = true;
+    // },
  
   }
 };

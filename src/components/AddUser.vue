@@ -8,7 +8,7 @@
           </v-col>
     </v-row>
     <v-row>
-      <UserDialog :userDialog="userDialog"></UserDialog>
+      <UserDialog></UserDialog>
     </v-row>
   </div>
     
