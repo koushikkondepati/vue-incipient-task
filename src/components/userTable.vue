@@ -40,17 +40,8 @@ export default {
   data(){
     return{
       data: [],
-      // users: userData,
-      UserDialog: false,
-      selectedRow: null,
-      // usersdata: "",
-      editenabled: false,
       
-      //validation
-      rules: {
-          name: [val => (val || '').length > 0 || 'This field is required'],
-        },
-      userDialog: false,
+      
     }
   },
 
@@ -73,14 +64,6 @@ export default {
 
     ...mapActions(["fetchUsers","deleteUsers","editUserDetails"]),
 
-
-
-    //edit the selected row details
-    // editUserDetails(idx){
-    //   this.editenabled = true;
-    //   this.selectedRow = idx;
-    //   this.userDialog = true;
-    // },
  
   }
 };

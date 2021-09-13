@@ -31,8 +31,8 @@ const actions = {
     async openDialog({commit}){
         const value = true;
         commit('dialogStatus',value);
-        const value4 = false;
-        commit('editEnable', value4);
+        const value1 = false;
+        commit('editEnable', value1);
     },
 
     async deleteUsers( {commit}, id){
@@ -68,19 +68,17 @@ const actions = {
         }});
     console.log(response.data);
     commit('addUser', response.data);
-    const value1 = false;
-    commit('dialogStatus',value1);
-    const value4 = false;
-    commit('editEnable', value4);
+    const value2 = false;
+    commit('dialogStatus',value2);
+    commit('editEnable', value2);
     },
 
     async editUserDetails({commit},id){
         console.log(id);
         const ID = id;
         commit('rowId',ID);
-        const value2 = true;
-        commit('dialogStatus', value2);
         const value3 = true;
+        commit('dialogStatus', value3);
         commit('editEnable', value3);
     },
 
@@ -88,10 +86,9 @@ const actions = {
         const response = await axios.put(`https://jsonplaceholder.typicode.com/users/${updatedUserDetails.id}`, updatedUserDetails );
         console.log(response.data);
         commit('updatedUser', response.data);
-        const value1 = false;
-    commit('dialogStatus',value1);
-    const value4 = false;
-    commit('editEnable', value4);
+        const value4 = false;
+        commit('dialogStatus',value4);
+        commit('editEnable', value4);
     },
 
     
@@ -104,7 +101,7 @@ const mutations = {
     removeUser: (state,id) => state.users = state.users.filter((user) => user.id !== id),
     addUser: (state,newUser) => state.users.unshift(newUser),
     dialogStatus: (state,value) => (state.userDialog = value),
-    editEnable: (state,value1) => (state.editEnabled = value1),
+    editEnable: (state,value) => (state.editEnabled = value),
     rowId: (state,id) => (state.selectedId = id),
     updatedUser(state, updatedUserDetails){
         const index = state.users.findIndex( x => x.id === updatedUserDetails.id)
