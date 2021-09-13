@@ -12,13 +12,13 @@
                     <th>website</th>
                     <th>Action</th>
                 </tr>
-                <tr v-for="user in allUsers" :key="user.id" id="employeelist">
+                <tr v-for="(user,idx) in allUsers" :key="user.id" id="employeelist">
                     <td>{{user.name}}</td>
                     <td>{{user.username}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.phone}}</td>
                     <td>{{user.website}}</td>
-                    <td><v-btn dense color="success" @click="editUserDetails(user.id)">Edit</v-btn><v-btn dense color="error" class="ml-2" @click="deleteUsers(user.id)">Delete</v-btn></td>
+                    <td><v-btn dense color="success" @click="editUserDetails(idx)">Edit</v-btn><v-btn dense color="error" class="ml-2" @click="deleteUsers(user.id)">Delete</v-btn></td>
                 </tr>
                 </table>
                 </div>

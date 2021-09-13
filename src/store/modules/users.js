@@ -31,6 +31,8 @@ const actions = {
     async openDialog({commit}){
         const value = true;
         commit('dialogStatus',value);
+        const value4 = false;
+        commit('editEnable', value4);
     },
 
     async deleteUsers( {commit}, id){
@@ -107,7 +109,7 @@ const mutations = {
     updatedUser(state, updatedUserDetails){
         const index = state.users.findIndex( x => x.id === updatedUserDetails.id)
 
-        if(index!=-1){
+        if(index!==-1){
             state.users.splice(index,1,updatedUserDetails);
         }
     }
